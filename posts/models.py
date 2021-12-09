@@ -3,9 +3,9 @@ from django.urls import reverse
 from django.conf import settings
 # Create your models here.
 
-from groups.models import GroupMember
+from groups.models import Group
 
-from django.conrtrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Post(models.Model):
@@ -15,14 +15,14 @@ class Post(models.Model):
     message_html = models.TextField(editable=False)
     group =models.ForeignKey(Group,related_name='posts',null =True,blank=True)
 
-def __str__(self):
-    return self.message
+    def __str__(self):
+      return self.message
 
-def save(self,*args,**kwargs):
-    super().save(*args,**kwargs)
+    def save(self,*args,**kwargs):
+      super().save(*args,**kwargs)
 
-def get_absolute_url(self):
-    return reverse('posts:single',kwargs={'username':self.user.username,'pk':self.pk})
+    def get_absolute_url(self):
+      return reverse('posts:single',kwargs={'username':self.user.username,'pk':self.pk})
 
 class Meta:
     ordering = ['-created_at']
